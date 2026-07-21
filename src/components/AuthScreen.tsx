@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { Apple, Chrome, Sparkles, HelpCircle, ExternalLink, Copy, Check, ChevronDown, ChevronUp } from 'lucide-react';
+import { Apple, Chrome, Sparkles, HelpCircle, ExternalLink, Copy, Check, ChevronDown, ChevronUp, X } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import LegalHub from './LegalHub';
 
@@ -22,7 +22,7 @@ const passwordError = (password: string) => {
   return null;
 };
 
-export default function AuthScreen({ initialMode = 'signin' }: { initialMode?: Mode }) {
+export default function AuthScreen({ initialMode = 'signin', onClose }: { initialMode?: Mode; onClose?: () => void }) {
   const [activeLegal, setActiveLegal] = useState<'terms' | 'privacy' | null>(null);
   const [mode, setMode] = useState<Mode>(initialMode);
   const [email, setEmail] = useState('');
@@ -137,8 +137,17 @@ export default function AuthScreen({ initialMode = 'signin' }: { initialMode?: M
     );
   }
 
-  return <main className="min-h-screen bg-[#0B0D12] text-[#E0E0E6] grid place-items-center p-4 sm:p-6 safe-py safe-px">
-    <section className="w-full max-w-md bg-[#171B24] border border-white/10 rounded-2xl p-5 sm:p-8 shadow-2xl">
+  return <main className="min-h-screen bg-[#0B0D12] text-[#E0E0E6] grid place-items-center p-4 sm:p-6 safe-py safe-px relative">
+    <section className="w-full max-w-md bg-[#171B24] border border-white/10 rounded-2xl p-5 sm:p-8 shadow-2xl relative">
+      {onClose && (
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 p-2 bg-white/5 hover:bg-white/10 text-[#94949C] hover:text-white rounded-full transition-colors cursor-pointer"
+          title="Close Sign In"
+        >
+          <X className="w-4 h-4" />
+        </button>
+      )}
       <div className="w-11 h-11 grid place-items-center rounded-xl bg-[#171B24] border border-[#D4AF37]/25 text-[#D4AF37]"><Sparkles className="w-5 h-5" /></div>
       <p className="text-[10px] tracking-[0.18em] uppercase font-bold text-[#D4AF37] mt-5 sm:mt-6">Himam <span dir="rtl" lang="ar">هِمَم</span></p>
       <h1 className="font-serif text-2xl sm:text-3xl font-bold text-white mt-1.5">{title}</h1>

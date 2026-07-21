@@ -12,6 +12,7 @@ import {
   X, 
   ChevronRight,
   LogOut,
+  LogIn,
   Sparkles,
   BookOpen,
   Compass
@@ -24,9 +25,11 @@ interface MoreSheetProps {
   setActiveTab: (tab: string) => void;
   profile: Profile;
   onSignOut?: () => void;
+  onSignIn?: () => void;
+  user?: any;
 }
 
-export default function MoreSheet({ isOpen, onClose, setActiveTab, profile, onSignOut }: MoreSheetProps) {
+export default function MoreSheet({ isOpen, onClose, setActiveTab, profile, onSignOut, onSignIn, user }: MoreSheetProps) {
   if (!isOpen) return null;
 
   const handleNavigate = (tab: string) => {
@@ -168,21 +171,36 @@ export default function MoreSheet({ isOpen, onClose, setActiveTab, profile, onSi
             })}
           </div>
 
-          {/* Quick Log Out Action */}
-          {onSignOut && (
-            <div className="pt-2">
-              <button
-                onClick={() => {
-                  onClose();
-                  onSignOut();
-                }}
-                className="w-full flex items-center justify-center gap-2 p-3.5 bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 text-red-400 font-bold text-xs rounded-[20px] transition-all active:scale-[0.98]"
-              >
-                <LogOut className="w-4 h-4" />
-                <span>Log Out of Account</span>
-              </button>
-            </div>
-          )}
+          {/* Quick Log In or Log Out Action */}
+          <div className="pt-2 space-y-2">
+            {user ? (
+              onSignOut && (
+                <button
+                  onClick={() => {
+                    onClose();
+                    onSignOut();
+                  }}
+                  className="w-full flex items-center justify-center gap-2 p-3.5 bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 text-red-400 font-bold text-xs rounded-[20px] transition-all active:scale-[0.98] cursor-pointer"
+                >
+                  <LogOut className="w-4 h-4" />
+                  <span>Log Out of Account</span>
+                </button>
+              )
+            ) : (
+              onSignIn && (
+                <button
+                  onClick={() => {
+                    onClose();
+                    onSignIn();
+                  }}
+                  className="w-full flex items-center justify-center gap-2 p-3.5 bg-gradient-to-r from-[#B8932D]/20 to-[#D4AF37]/20 hover:from-[#B8932D]/30 hover:to-[#D4AF37]/30 border border-[#D4AF37]/40 text-[#D4AF37] font-bold text-xs rounded-[20px] transition-all active:scale-[0.98] cursor-pointer shadow-lg"
+                >
+                  <LogIn className="w-4 h-4 text-[#D4AF37]" />
+                  <span>Log In / Sign Up</span>
+                </button>
+              )
+            )}
+          </div>
         </div>
       </div>
     </div>

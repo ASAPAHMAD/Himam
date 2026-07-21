@@ -33,6 +33,7 @@ import {
   BookOpen, 
   Users, 
   LogOut,
+  LogIn,
   Compass,
   Calendar,
   Trophy,
@@ -70,6 +71,7 @@ const LEVELS = [
 export default function App() {
   const { user, loading: authLoading, configured, signOut } = useAuth();
   const { t, i18n } = useTranslation();
+  const [showAuthModal, setShowAuthModal] = useState(false);
   const [isMoreOpen, setIsMoreOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('dashboard');
   const [isAICoachOpen, setIsAICoachOpen] = useState(true);
@@ -620,13 +622,23 @@ export default function App() {
             </span>
           </div>
 
-          <button
-            onClick={handleSignOutRequest}
-            className="p-1.5 bg-white/5 hover:bg-red-500/10 hover:text-red-400 border border-white/5 rounded-lg text-[#94949C] hover:border-red-500/20 transition-all"
-            title="Log Out"
-          >
-            <LogOut className="w-3.5 h-3.5" />
-          </button>
+          {user ? (
+            <button
+              onClick={handleSignOutRequest}
+              className="p-1.5 bg-white/5 hover:bg-red-500/10 hover:text-red-400 border border-white/5 rounded-lg text-[#94949C] hover:border-red-500/20 transition-all cursor-pointer"
+              title="Log Out"
+            >
+              <LogOut className="w-3.5 h-3.5" />
+            </button>
+          ) : (
+            <button
+              onClick={() => setShowAuthModal(true)}
+              className="p-1.5 bg-[#D4AF37]/10 hover:bg-[#D4AF37]/20 border border-[#D4AF37]/30 rounded-lg text-[#D4AF37] transition-all cursor-pointer"
+              title="Log In"
+            >
+              <LogIn className="w-3.5 h-3.5" />
+            </button>
+          )}
         </div>
       </div>
 
@@ -732,6 +744,26 @@ export default function App() {
               <ChevronDown className="w-3.5 h-3.5 text-[#64748B]" />
             </div>
 
+            {/* Desktop Auth Button */}
+            {user ? (
+              <button
+                onClick={handleSignOutRequest}
+                className="p-2 bg-[#0E1320] hover:bg-red-500/10 text-[#94A3B8] hover:text-red-400 border border-[#1E283D] hover:border-red-500/20 rounded-xl transition-all cursor-pointer"
+                title="Log Out"
+              >
+                <LogOut className="w-4 h-4" />
+              </button>
+            ) : (
+              <button
+                onClick={() => setShowAuthModal(true)}
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-[#D4AF37]/10 hover:bg-[#D4AF37]/20 border border-[#D4AF37]/30 text-[#D4AF37] rounded-xl text-xs font-bold transition-all cursor-pointer"
+                title="Log In"
+              >
+                <LogIn className="w-3.5 h-3.5 text-[#D4AF37]" />
+                <span>Log In</span>
+              </button>
+            )}
+
             {/* Toggle AI Coach Drawer Pill Badge */}
             <button
               onClick={() => setIsAICoachOpen(!isAICoachOpen)}
@@ -771,13 +803,25 @@ export default function App() {
               <span className="text-[10px] font-bold text-[#E0E0E6] max-w-[70px] truncate">{profile.name ? profile.name.split(' ')[0] : 'Me'}</span>
             </button>
 
-            <button
-              onClick={handleSignOutRequest}
-              className="text-[10px] text-red-400 hover:text-red-300 border border-red-500/10 bg-red-500/5 px-2.5 py-1.5 rounded-lg active:scale-95 transition-all font-bold min-h-[36px] flex items-center"
-              id="mobile-global-logout"
-            >
-              Log Out
-            </button>
+            {user ? (
+              <button
+                onClick={handleSignOutRequest}
+                className="text-[10px] text-red-400 hover:text-red-300 border border-red-500/10 bg-red-500/5 px-2.5 py-1.5 rounded-lg active:scale-95 transition-all font-bold min-h-[36px] flex items-center gap-1 cursor-pointer"
+                id="mobile-global-logout"
+              >
+                <LogOut className="w-3 h-3" />
+                <span>Log Out</span>
+              </button>
+            ) : (
+              <button
+                onClick={() => setShowAuthModal(true)}
+                className="text-[10px] text-[#D4AF37] hover:text-white border border-[#D4AF37]/30 bg-[#D4AF37]/10 px-2.5 py-1.5 rounded-lg active:scale-95 transition-all font-bold min-h-[36px] flex items-center gap-1 cursor-pointer shadow-sm"
+                id="mobile-global-login"
+              >
+                <LogIn className="w-3 h-3 text-[#D4AF37]" />
+                <span>Log In</span>
+              </button>
+            )}
           </div>
         </div>
 
@@ -922,7 +966,16 @@ export default function App() {
         setActiveTab={setActiveTab}
         profile={profile}
         onSignOut={handleSignOutRequest}
+        onSignIn={() => setShowAuthModal(true)}
+        user={user}
       />
+
+      {/* SIGN IN / AUTH MODAL OVERLAY */}
+      {showAuthModal && (
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
+          <AuthScreen onClose={() => setShowAuthModal(false)} />
+        </div>
+      )}
     </div>
   );
 }

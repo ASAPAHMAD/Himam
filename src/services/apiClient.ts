@@ -32,7 +32,10 @@ export async function apiFetch(path: string, init: RequestInit = {}): Promise<Re
     }
   }
 
-  const headers = new Headers(init.headers);
-  headers.set('Authorization', `Bearer ${token}`);
+  const headers = new Headers(init.headers || {});
+  if (token) {
+    const safeToken = String(token).replace(/[^\x20-\x7E]/g, '');
+    headers.set('Authorization', `Bearer ${safeToken}`);
+  }
   return fetch(path, { ...init, headers });
 }
