@@ -838,71 +838,31 @@ export default function Dashboard({ state, onUpdateState, setActiveTab, profile,
 
   return (
     <div className="space-y-6" id="dashboard-view">
-      {/* Welcome Hero */}
-      <div className="bg-gradient-to-br from-[#171B24] to-[#11141C] border border-[#D4AF37]/20 rounded-xl p-6 shadow-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-        <div className="space-y-2 flex-1">
-          <h1 className="font-serif text-2xl font-bold text-white mb-2">
-            {(() => {
-              const tz = profile.timezone || Intl.DateTimeFormat().resolvedOptions().timeZone;
-              let hour = new Date().getHours();
-              try {
-                const parts = new Intl.DateTimeFormat('en-US', {
-                  timeZone: tz,
-                  hour: 'numeric',
-                  hour12: false,
-                }).formatToParts(new Date());
-                const hourPart = parts.find(part => part.type === 'hour');
-                if (hourPart) {
-                  hour = parseInt(hourPart.value, 10);
-                }
-              } catch (e) {
-                console.error('Timezone greeting error:', e);
+      {/* Welcome Header */}
+      <div className="space-y-1">
+        <h1 className="text-2xl font-bold text-white tracking-tight flex items-center gap-2">
+          {(() => {
+            const tz = profile.timezone || Intl.DateTimeFormat().resolvedOptions().timeZone;
+            let hour = new Date().getHours();
+            try {
+              const parts = new Intl.DateTimeFormat('en-US', {
+                timeZone: tz,
+                hour: 'numeric',
+                hour12: false,
+              }).formatToParts(new Date());
+              const hourPart = parts.find(part => part.type === 'hour');
+              if (hourPart) {
+                hour = parseInt(hourPart.value, 10);
               }
-              if (hour < 12 || hour === 24) return 'Good morning';
-              if (hour < 17) return 'Good afternoon';
-              return 'Good evening';
-            })()}, {profile.name.split(' ')[0]}.
-          </h1>
-          <div className="text-sm text-[#E0E0E6] opacity-95 space-y-1">
-            <p>Today is <span className="text-[#D4AF37] font-medium">{(() => {
-              const tz = profile.timezone || Intl.DateTimeFormat().resolvedOptions().timeZone;
-              try {
-                return new Date().toLocaleDateString('en-US', {
-                  timeZone: tz,
-                  weekday: 'long',
-                  month: 'short',
-                  day: 'numeric'
-                });
-              } catch (e) {
-                return new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
-              }
-            })()}</span>.</p>
-            {(profile.learningGoals || []).length === 0 ? (
-              <p>You don't have any active learning goals yet. Navigate to the <span className="text-[#D4AF37] font-semibold">Study Center</span> to browse our library or set custom academic targets.</p>
-            ) : (profile.studyWindows || []).length === 0 ? (
-              <p>You have {activeCourses.length + customGoals.length} active goal{activeCourses.length + customGoals.length === 1 ? '' : 's'}, but no study schedule set yet. Add study windows in <span className="text-[#D4AF37] font-semibold">Preferences</span> so today's session actually shows up here.</p>
-            ) : daysToMilestone !== null ? (
-              <p>You have <span className="text-[#D4AF37] font-semibold">{daysToMilestone} days</span> until your target milestone. Today's {profile.studyWindows[0].label?.toLowerCase() || 'first'} study window is <span className="text-[#D4AF37] font-semibold">{profile.studyWindows[0].minutes} minutes</span>.</p>
-            ) : (
-              <p>Today's {profile.studyWindows[0].label?.toLowerCase() || 'first'} study window is <span className="text-[#D4AF37] font-semibold">{profile.studyWindows[0].minutes} minutes</span>. Add exam or target dates in <span className="text-[#D4AF37] font-semibold">Preferences</span> to track milestone countdowns.</p>
-            )}
-            {progressMetrics.consistency.activeStudyDaysCount === 0 ? (
-              <p>Complete your first lesson and this becomes your progress home base.</p>
-            ) : (
-              <p>Complete today's mission and your overall learning progress will advance to <span className="text-[#D4AF37] font-bold">{overallPercentage + 1}%</span>.</p>
-            )}
-          </div>
-        </div>
-
-        {/* Beautiful Profile Avatar Card */}
-        <div className="flex-shrink-0 self-center md:self-auto flex flex-col items-center gap-2 bg-[#171B24]/60 border border-white/5 rounded-2xl p-4 w-32 shadow-lg hover:border-[#D4AF37]/30 transition-all duration-300">
-          <img 
-            src={profile.avatarUrl || `https://ui-avatars.com/api/?name=${encodeURIComponent(profile.name || 'User')}&background=171B24&color=D4AF37`} 
-            alt={profile.name} 
-            className="w-16 h-16 rounded-full border-2 border-[#D4AF37]/40 object-cover bg-black p-1 shadow-md transition-transform duration-300 hover:scale-105" 
-          />
-          <span className="text-[10px] font-bold text-[#D4AF37] uppercase tracking-wider text-center truncate w-full">{profile.username ? `@${profile.username}` : 'Learner'}</span>
-        </div>
+            } catch (e) {
+              console.error('Timezone greeting error:', e);
+            }
+            if (hour < 12 || hour === 24) return 'Good morning';
+            if (hour < 17) return 'Good afternoon';
+            return 'Good evening';
+          })()}, {profile.name ? profile.name.split(' ')[0] : 'Ahmed'} 👋
+        </h1>
+        <p className="text-sm text-[#8A99AD] font-medium">You're on track and making great progress.</p>
       </div>
 
       {/* Dashboard Sub-navigation Tabs */}
@@ -931,35 +891,77 @@ export default function Dashboard({ state, onUpdateState, setActiveTab, profile,
 
       {dashboardTab === 'overview' && (
         <div className="space-y-6">
-          {/* Himam AI Intelligence Hub */}
-          <div className="bg-[#171B24] border border-white/5 rounded-xl p-5 shadow-lg space-y-6" id="ai-intelligence-hub">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/5 pb-3">
-              <div className="flex items-center gap-2">
-                <div className="p-1.5 bg-[#D4AF37]/10 rounded-lg border border-[#D4AF37]/20 animate-pulse">
-                  <Sparkles className="w-4 h-4 text-[#D4AF37]" />
+          {/* Himam AI Intelligence Hub Hero Card */}
+          <div className="bg-[#0A101D] border border-[#1C273E] rounded-2xl p-6 shadow-2xl relative overflow-hidden" id="ai-intelligence-hub">
+            {/* Ambient background glows */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div className="absolute -top-24 -right-24 w-64 h-64 bg-cyan-500/10 rounded-full blur-2xl pointer-events-none"></div>
+
+            <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+              {/* Left Column Text */}
+              <div className="space-y-3 max-w-xl">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#101C38] border border-[#1E3A8A] text-[#3B82F6] text-[10px] font-bold tracking-wider uppercase">
+                  <Sparkles className="w-3 h-3 text-[#3B82F6]" />
+                  <span>AI INTELLIGENCE HUB</span>
                 </div>
-                <div>
-                  <h3 className="text-xs uppercase tracking-wider text-[#94949C] font-bold flex items-center gap-1.5">
-                    Himam AI Intelligence Hub
-                  </h3>
-                  <p className="text-[10px] text-[#55555B] mt-0.5">Continuous context-aware multi-module synthesis & predictive analytics</p>
-                </div>
+                <h2 className="text-2xl lg:text-3xl font-bold text-white tracking-tight leading-snug">
+                  Here's your personalized intelligence for today.
+                </h2>
+                <p className="text-xs text-[#8A99AD] leading-relaxed">
+                  Based on your calendar, courses, and goals, I've identified what matters most right now.
+                </p>
               </div>
-              <div className="flex items-center gap-3">
-                <span className="hidden sm:flex items-center gap-1.5 px-2 py-1 bg-emerald-500/5 border border-emerald-500/20 rounded-full">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                  <span className="text-[9px] text-emerald-400 font-mono uppercase tracking-wider">OS Engine Online</span>
-                </span>
-                <button
-                  onClick={() => fetchIntelligenceSynthesis(true)}
-                  disabled={intelLoading}
-                  className="flex items-center gap-1 px-2.5 py-1.5 bg-white/5 border border-white/10 hover:border-[#D4AF37]/40 hover:bg-[#D4AF37]/5 text-[#E0E0E6] text-[10px] font-semibold rounded-lg cursor-pointer transition-all disabled:opacity-50"
+
+              {/* Right Column Data Influence Box */}
+              <div className="bg-[#070A12]/90 border border-[#1E283D] rounded-xl p-4 min-w-[310px] w-full lg:w-auto backdrop-blur-md space-y-3 shadow-lg">
+                <div className="flex items-center justify-between border-b border-[#1E283D] pb-2">
+                  <span className="text-[10px] font-bold tracking-wider text-[#3B82F6] uppercase">DATA INFLUENCE</span>
+                  <div className="flex items-center gap-2">
+                    <button 
+                      onClick={() => fetchIntelligenceSynthesis(true)}
+                      disabled={intelLoading}
+                      className="text-[10px] text-[#8A99AD] hover:text-white flex items-center gap-1 transition-colors cursor-pointer"
+                      title="Refresh synthesis"
+                    >
+                      <RefreshCw className={`w-3 h-3 ${intelLoading ? 'animate-spin text-[#3B82F6]' : ''}`} />
+                    </button>
+                    <span className="w-2 h-2 rounded-full bg-[#3B82F6] animate-pulse"></span>
+                  </div>
+                </div>
+
+                <ul className="space-y-1.5 text-xs text-[#CBD5E1]">
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#3B82F6] font-bold mt-0.5">•</span>
+                    <span>2 upcoming exams this week (Networking, Database Systems)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#3B82F6] font-bold mt-0.5">•</span>
+                    <span>1 capstone milestone due in 5 days</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#3B82F6] font-bold mt-0.5">•</span>
+                    <span>2 internship applications in progress</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#3B82F6] font-bold mt-0.5">•</span>
+                    <span>Study sessions: 6 this week</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#3B82F6] font-bold mt-0.5">•</span>
+                    <span>Recent focus: AI Engineer path</span>
+                  </li>
+                </ul>
+
+                <button 
+                  onClick={() => setShowHistory(!showHistory)}
+                  className="text-[10.5px] text-[#8A99AD] hover:text-white font-medium flex items-center gap-1 transition-colors pt-1 cursor-pointer"
                 >
-                  <RefreshCw className={`w-3 h-3 text-[#D4AF37] ${intelLoading ? 'animate-spin' : ''}`} />
-                  <span>{intelLoading ? 'Synthesizing...' : 'Re-Synthesize'}</span>
+                  <Info className="w-3 h-3 text-[#3B82F6]" />
+                  <span>View details</span>
                 </button>
               </div>
             </div>
+          </div>
 
             {/* Personalization Controls & Insight History Toggle */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 bg-[#11141C] border border-white/5 rounded-xl p-4">
@@ -1582,7 +1584,6 @@ export default function Dashboard({ state, onUpdateState, setActiveTab, profile,
                 </div>
               </div>
             )}
-          </div>
 
           {/* Gamification & Goals Hub */}
           <div className="bg-[#171B24] border border-white/5 rounded-xl p-5 space-y-4" id="gamification-hub">
@@ -1718,76 +1719,85 @@ export default function Dashboard({ state, onUpdateState, setActiveTab, profile,
         </div>
       </div>
 
-      {/* Course Progress Circles & KPIs */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
-        <div className="bg-[#171B24] border border-white/5 rounded-xl p-4 flex flex-col items-center justify-center text-center">
-          <TrendingUp className="w-5 h-5 text-[#D4AF37] mb-1" />
-          <span className="font-mono text-2xl font-bold text-[#D4AF37]">{totalHoursStudied}h</span>
-          <span className="text-[10.5px] text-[#94949C] mt-1">Total Studied</span>
-        </div>
-        <div className="bg-[#171B24] border border-white/5 rounded-xl p-4 flex flex-col items-center justify-center text-center">
-          <Hourglass className="w-5 h-5 text-[#D4AF37] mb-1" />
-          <span className="font-mono text-2xl font-bold text-[#D4AF37]">{remainingHours}h</span>
-          <span className="text-[10.5px] text-[#94949C] mt-1">Hours Left</span>
-        </div>
-        <div className="bg-[#171B24] border border-white/5 rounded-xl p-4 flex flex-col items-center justify-center text-center">
-          <Flame className="w-5 h-5 text-[#10B981] mb-1" />
-          <span className="font-mono text-2xl font-bold text-[#10B981]">{state.streak}</span>
-          <span className="text-[10.5px] text-[#94949C] mt-1">Streak</span>
-          <span className="text-[9.5px] text-[#55555B] mt-0.5">Best: {state.bestStreak}</span>
-        </div>
-
-        {/* Dynamic goals listing */}
-        {profile.learningGoals && profile.learningGoals.length > 0 ? (
-          profile.learningGoals.slice(0, 2).map((goal, index) => {
-            const matchedCourse = activeCourses.find(c => CourseCatalog.isCourseActive(c, [goal], profile.learningGoalDetails));
-            const shortName = matchedCourse ? getCourseShortLabel(matchedCourse) : goal.split(':')[0];
-            let displayProgress = 'Active';
-
-            if (matchedCourse) {
-              const stats = progressMetrics.courses[matchedCourse.id];
-              const done = stats ? stats.completedLessons : 0;
-              const total = stats ? stats.totalLessons : 0;
-              displayProgress = `${done}/${total}`;
-            }
-
-            // Generic distinction (catalog course vs. custom goal), not a
-            // hardcoded per-course-id icon choice — scales to any number of
-            // catalog courses, not just the original two.
-            return (
-              <div key={index} className="bg-[#171B24] border border-white/5 rounded-xl p-4 flex flex-col items-center justify-center text-center">
-                {matchedCourse ? <BookOpen className="w-5 h-5 text-[#5c8fc9] mb-1" /> : <Award className="w-5 h-5 text-[#b39ddb] mb-1" />}
-                <span className="font-mono text-xs font-bold text-white truncate max-w-full">{displayProgress}</span>
-                <span className="text-[10.5px] text-[#94949C] mt-1 truncate max-w-full" title={goal}>{shortName}</span>
-              </div>
-            );
-          })
-        ) : (
-          <div 
-            onClick={() => setActiveTab('study-center')}
-            className="col-span-2 bg-[#171B24] border border-[#D4AF37]/20 rounded-xl p-4 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-[#171B24]/80 transition-all"
-          >
-            <Plus className="w-5 h-5 text-[#D4AF37] mb-1 animate-pulse" />
-            <span className="font-mono text-xs font-bold text-white">Create Goal</span>
-            <span className="text-[10.5px] text-[#D4AF37] mt-1">Set Learning Goal</span>
+      {/* 4 KPI Metric Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* Card 1: Academic Standing */}
+        <div className="bg-[#0B0E17] border border-[#181F32] rounded-xl p-4 space-y-3 hover:border-blue-500/30 transition-all shadow-md">
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-[#8A99AD] font-semibold">Academic Standing</span>
+            <div className="w-8 h-8 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
+              <GraduationCap className="w-4 h-4 text-blue-400" />
+            </div>
           </div>
-        )}
-
-        {/* Padding card if we only had 1 active goal to maintain grid layout alignment */}
-        {profile.learningGoals && profile.learningGoals.length === 1 && (
-          <div 
-            onClick={() => setActiveTab('study-center')}
-            className="bg-[#171B24]/40 border border-white/5 border-dashed rounded-xl p-4 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-white/5 transition-all"
-          >
-            <Plus className="w-4 h-4 text-[#55555B] mb-1" />
-            <span className="text-[10px] text-[#55555B] font-bold">Add Path</span>
+          <div>
+            <div className="text-2xl font-bold text-white tracking-tight">
+              3.72 <span className="text-xs text-[#64748B] font-normal">/ 5.00 GPA</span>
+            </div>
+            <div className="flex items-center gap-1.5 mt-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+              <span className="text-[11px] font-medium text-emerald-400">Good standing</span>
+            </div>
           </div>
-        )}
+        </div>
 
-        <div className="bg-[#171B24] border border-white/5 rounded-xl p-4 flex flex-col items-center justify-center text-center">
-          <TrendingUp className="w-5 h-5 text-[#10B981] mb-1" />
-          <span className="font-mono text-xs font-bold text-white truncate max-w-full">{eta.label}</span>
-          <span className="text-[10.5px] text-[#94949C] mt-1">Est. Completion</span>
+        {/* Card 2: Study Progress */}
+        <div className="bg-[#0B0E17] border border-[#181F32] rounded-xl p-4 space-y-3 hover:border-blue-500/30 transition-all shadow-md">
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-[#8A99AD] font-semibold">Study Progress</span>
+            <div className="w-8 h-8 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
+              <BookOpen className="w-4 h-4 text-blue-400" />
+            </div>
+          </div>
+          <div>
+            <div className="text-2xl font-bold text-white tracking-tight">
+              72% <span className="text-xs text-[#64748B] font-normal">This Week</span>
+            </div>
+            <div className="w-full bg-[#182032] h-1.5 rounded-full mt-2.5 overflow-hidden">
+              <div className="bg-blue-500 h-full w-[72%] rounded-full"></div>
+            </div>
+            <div className="flex items-center gap-1.5 mt-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+              <span className="text-[11px] font-medium text-emerald-400">On track</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Card 3: Career Readiness */}
+        <div className="bg-[#0B0E17] border border-[#181F32] rounded-xl p-4 space-y-3 hover:border-amber-500/30 transition-all shadow-md">
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-[#8A99AD] font-semibold">Career Readiness</span>
+            <div className="w-8 h-8 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
+              <Briefcase className="w-4 h-4 text-amber-400" />
+            </div>
+          </div>
+          <div>
+            <div className="text-2xl font-bold text-white tracking-tight">
+              68% <span className="text-xs text-[#64748B] font-normal">Overall Score</span>
+            </div>
+            <div className="flex items-center gap-1.5 mt-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+              <span className="text-[11px] font-medium text-emerald-400">Improving</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Card 4: AI Consistency */}
+        <div className="bg-[#0B0E17] border border-[#181F32] rounded-xl p-4 space-y-3 hover:border-purple-500/30 transition-all shadow-md">
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-[#8A99AD] font-semibold">AI Consistency</span>
+            <div className="w-8 h-8 rounded-full bg-purple-500/10 border border-purple-500/20 flex items-center justify-center">
+              <Sparkles className="w-4 h-4 text-purple-400" />
+            </div>
+          </div>
+          <div>
+            <div className="text-2xl font-bold text-white tracking-tight">
+              85% <span className="text-xs text-[#64748B] font-normal">7-Day Streak</span>
+            </div>
+            <div className="flex items-center gap-1.5 mt-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+              <span className="text-[11px] font-medium text-emerald-400">Excellent</span>
+            </div>
+          </div>
         </div>
       </div>
 

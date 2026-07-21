@@ -42,7 +42,9 @@ import {
   Search,
   Bell,
   Menu,
-  MoreHorizontal
+  MoreHorizontal,
+  ChevronDown,
+  ChevronRight
 } from 'lucide-react';
 
 const STORE_KEY = "ahmad_ledger_v3";
@@ -489,42 +491,31 @@ export default function App() {
   }
 
   const bgClasses: Record<string, string> = {
-    'midnight': 'bg-[#0B0D12]',
-    'emerald': 'bg-[#0A120F]',
-    'sapphire': 'bg-[#0B0D12]',
-    'amethyst': 'bg-[#110B17]',
-    'obsidian': 'bg-[#050508]',
-    'onyx': 'bg-[#120D0A]'
+    'midnight': 'bg-[#07090E]',
+    'emerald': 'bg-[#07090E]',
+    'sapphire': 'bg-[#07090E]',
+    'amethyst': 'bg-[#07090E]',
+    'obsidian': 'bg-[#07090E]',
+    'onyx': 'bg-[#07090E]'
   };
-  const activeBg = profile.background && bgClasses[profile.background] ? bgClasses[profile.background] : 'bg-[#0B0D12]';
+  const activeBg = profile.background && bgClasses[profile.background] ? bgClasses[profile.background] : 'bg-[#07090E]';
 
   return (
-    <div className={`flex h-screen ${activeBg} text-[#E0E0E6] font-sans antialiased overflow-hidden`}>
+    <div className={`flex h-screen ${activeBg} text-[#E2E8F0] font-sans antialiased overflow-hidden`}>
       {/* SIDEBAR PANEL */}
-      <div className="hidden md:flex flex-col w-64 bg-[#11141C] border-r border-white/5 select-none h-full flex-shrink-0">
-        {/* Brand Header with custom Arabic Calligraphy هـ + Sparkles SVG */}
-        <div className="p-5 border-b border-white/5 flex items-center gap-3">
-          <svg className="w-8 h-8 flex-shrink-0" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#D4AF37" />
-                <stop offset="100%" stopColor="#E6C35C" />
-              </linearGradient>
-              <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#5DA9FF" />
-                <stop offset="100%" stopColor="#3B82F6" />
-              </linearGradient>
-            </defs>
-            <path d="M50 85C69.33 85 85 69.33 85 50C85 30.67 69.33 15 50 15C38 15 28 25 28 40C28 55 42 65 55 60C62 57.3 65 48 65 40C65 25 45 30 45 42C45 52 55 52 55 42" stroke="url(#goldGrad)" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M78 25C78 21 82 20 82 20C82 20 78 19 78 15C78 19 74 20 74 20C74 20 78 21 78 25Z" fill="url(#blueGrad)" />
-            <path d="M22 55C22 51 26 50 26 50C26 50 22 49 22 45C22 49 18 50 18 50C18 50 22 51 22 55Z" fill="url(#blueGrad)" />
-          </svg>
-          <div>
-            <div className="font-display text-[17px] font-bold tracking-tight text-white flex items-center gap-1.5">
-              Himam <span className="text-[#D4AF37]" dir="rtl" lang="ar">هِمَم</span>
+      <div className="hidden md:flex flex-col w-60 bg-[#0B0E17] border-r border-[#181F32] select-none h-full flex-shrink-0">
+        {/* Brand Header with Hexagonal Logo */}
+        <div className="p-5 border-b border-[#181F32] flex items-center gap-3">
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#D4AF37] to-[#F5D061] p-0.5 flex items-center justify-center shadow-lg shadow-[#D4AF37]/20 flex-shrink-0">
+            <div className="w-full h-full bg-[#0B0E17] rounded-[7px] flex items-center justify-center">
+              <svg className="w-4.5 h-4.5 text-[#D4AF37]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+              </svg>
             </div>
-            <div className="text-[9px] uppercase tracking-wider text-[#94949C] font-semibold mt-0.5">
-              AI Learning &amp; Career OS
+          </div>
+          <div>
+            <div className="font-display text-[18px] font-bold tracking-tight text-white flex items-center gap-1.5">
+              Himam
             </div>
           </div>
         </div>
@@ -544,7 +535,7 @@ export default function App() {
         </div>
 
         {/* Navigation Items */}
-        <nav className="flex-1 overflow-y-auto px-3 py-1 space-y-1 scrollbar-none">
+        <nav className="flex-1 overflow-y-auto px-3 py-2 space-y-1 scrollbar-none">
           {menuItems.map(item => {
             const Icon = item.icon;
             
@@ -565,13 +556,13 @@ export default function App() {
                 onClick={async () => {
                   setActiveTab(item.id);
                 }}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 text-xs font-semibold rounded-xl text-left transition-all ${
+                className={`w-full flex items-center gap-3 px-3 py-2 text-xs font-semibold rounded-xl text-left transition-all ${
                   isActive
-                    ? 'bg-[#171B24] text-[#D4AF37] border border-white/5 shadow-md'
-                    : 'text-[#94949C] hover:bg-white/5 hover:text-white'
+                    ? 'bg-[#131927] text-[#D4AF37] border border-[#2D3954] shadow-sm'
+                    : 'text-[#8A99AD] hover:bg-white/5 hover:text-white'
                 }`}
               >
-                <Icon className={`w-4 h-4 ${isActive ? 'text-[#D4AF37]' : 'text-[#94949C]'}`} />
+                <Icon className={`w-4 h-4 ${isActive ? 'text-[#D4AF37]' : 'text-[#8A99AD]'}`} />
                 <span>{item.label}</span>
               </button>
             );
@@ -579,21 +570,24 @@ export default function App() {
         </nav>
 
         {/* Himam Pro Upgrade Card */}
-        <div className="mx-4 my-4 p-4 bg-gradient-to-b from-[#171B24] to-[#11141C] border border-white/5 rounded-[20px] space-y-3 shadow-lg relative overflow-hidden group">
-          <div className="absolute top-0 right-0 w-24 h-24 bg-[#D4AF37]/5 rounded-full blur-2xl pointer-events-none"></div>
+        <div className="mx-3 my-3 p-3.5 bg-[#0E1320] border border-[#1E283D] rounded-2xl space-y-2.5 shadow-lg relative overflow-hidden group">
+          <div className="absolute top-0 right-0 w-20 h-20 bg-[#D4AF37]/5 rounded-full blur-xl pointer-events-none"></div>
           <div>
-            <h4 className="text-xs font-bold font-display text-white tracking-wide">Himam Pro</h4>
-            <span className="text-[9.5px] text-[#94949C] block mt-0.5">Renewal: Aug 22, 2025</span>
+            <div className="flex items-center gap-1.5">
+              <span className="text-xs font-bold text-white font-display">Himam Pro</span>
+              <span className="text-[8px] bg-[#D4AF37]/20 text-[#D4AF37] font-bold px-1.5 py-0.2 rounded border border-[#D4AF37]/30">ACTIVE</span>
+            </div>
+            <span className="text-[9px] text-[#64748B] block mt-0.5">Renewal: Aug 22, 2025</span>
           </div>
           <button 
             onClick={() => setActiveTab('settings')}
-            className="w-full bg-[#171B24] hover:bg-[#1C212C] border border-[#D4AF37]/20 hover:border-[#D4AF37]/50 text-[#D4AF37] text-[10.5px] font-bold py-2 rounded-xl transition-all duration-200 shadow-md active:scale-[0.98]"
+            className="w-full bg-[#12192B] hover:bg-[#1A233A] border border-[#D4AF37]/30 hover:border-[#D4AF37]/60 text-[#D4AF37] text-[10.5px] font-bold py-1.5 rounded-xl transition-all duration-200 shadow-md active:scale-[0.98]"
           >
             Upgrade Plan
           </button>
           
-          <div className="pt-1">
-            <p className="text-[9.5px] text-[#55555B] font-medium leading-snug">
+          <div className="pt-0.5">
+            <p className="text-[9.5px] text-[#64748B] font-medium leading-snug">
               Small progress every day leads to big results.
             </p>
           </div>
@@ -696,60 +690,64 @@ export default function App() {
 
       <div className="flex-1 flex flex-col overflow-hidden h-full">
         {/* DESKTOP TOP HEADER */}
-        <div className="hidden md:flex items-center justify-between bg-[#11141C] border-b border-white/5 px-6 py-3 select-none flex-shrink-0">
+        <div className="hidden md:flex items-center justify-between bg-[#0B0E17] border-b border-[#181F32] px-6 py-2.5 select-none flex-shrink-0">
           {/* Search box with Command shortcut */}
           <div className="relative w-80">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#55555B]" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#64748B]" />
             <input 
               type="text" 
               placeholder="Search anything..." 
               disabled
-              className="w-full bg-[#0B0D12] border border-white/5 rounded-xl pl-10 pr-12 py-2 text-xs text-[#94949C] focus:outline-none placeholder-[#55555B]"
+              className="w-full bg-[#0E1320] border border-[#1E283D] rounded-xl pl-9 pr-12 py-1.5 text-xs text-[#94A3B8] focus:outline-none placeholder-[#64748B]"
             />
-            <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[10px] font-mono text-[#55555B] bg-white/5 px-1.5 py-0.5 rounded border border-white/10 select-none">⌘K</span>
+            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-mono text-[#64748B] bg-white/5 px-1.5 py-0.5 rounded border border-white/10 select-none">⌘K</span>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             {/* Calendar & Bell Notification Icons */}
             <button 
               onClick={() => setActiveTab('calendar')}
-              className="p-2 bg-[#171B24]/40 hover:bg-white/5 border border-white/5 rounded-xl text-[#94949C] hover:text-white transition-all relative min-touch-target"
+              className="p-2 bg-[#0E1320] hover:bg-[#151D30] border border-[#1E283D] rounded-xl text-[#94A3B8] hover:text-white transition-all relative"
               title="Study Calendar"
             >
               <Calendar className="w-4 h-4" />
             </button>
             <button 
               onClick={() => setActiveTab('settings')}
-              className="p-2 bg-[#171B24]/40 hover:bg-white/5 border border-white/5 rounded-xl text-[#94949C] hover:text-white transition-all relative min-touch-target"
+              className="p-2 bg-[#0E1320] hover:bg-[#151D30] border border-[#1E283D] rounded-xl text-[#94A3B8] hover:text-white transition-all relative"
               title="Notifications"
             >
               <Bell className="w-4 h-4" />
-              <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-[#FF5C5C] border-2 border-[#11141C] rounded-full"></span>
+              <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-[#FF4D4D] text-white text-[9px] font-bold rounded-full flex items-center justify-center border-2 border-[#0B0E17]">3</span>
             </button>
             
-            {/* Toggle AI Coach Drawer */}
+            {/* User profile dropdown button */}
+            <div className="flex items-center gap-2 border border-[#1E283D] bg-[#0E1320] px-3 py-1.5 rounded-xl cursor-pointer hover:border-white/20 transition-all" onClick={() => setActiveTab('settings')}>
+              <img 
+                src={profile.avatarUrl || `https://ui-avatars.com/api/?name=${encodeURIComponent(profile.name || user?.email || 'User')}&background=0E1320&color=D4AF37`} 
+                alt="Profile" 
+                className="w-6 h-6 rounded-full object-cover border border-[#D4AF37]/40 bg-black p-0.5" 
+              />
+              <span className="text-xs font-semibold text-white">{profile.name ? profile.name.split(' ')[0] : 'Ahmed'}</span>
+              <ChevronDown className="w-3.5 h-3.5 text-[#64748B]" />
+            </div>
+
+            {/* Toggle AI Coach Drawer Pill Badge */}
             <button
               onClick={() => setIsAICoachOpen(!isAICoachOpen)}
-              className={`flex items-center gap-1.5 px-3 py-1.5 border rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+              className={`flex items-center gap-2 px-3 py-1.5 border rounded-full text-xs font-semibold transition-all cursor-pointer ${
                 isAICoachOpen 
-                  ? 'bg-[#5DA9FF]/10 border-[#5DA9FF]/30 text-[#5DA9FF]' 
-                  : 'bg-[#171B24]/40 border-white/5 text-[#94949C] hover:text-white hover:border-white/10'
+                  ? 'bg-[#1E2B48] border-[#3B82F6]/50 text-[#60A5FA] shadow-sm shadow-[#3B82F6]/20' 
+                  : 'bg-[#0E1320] border-[#1E283D] text-[#94A3B8] hover:text-white hover:border-white/20'
               }`}
               title="Toggle AI Coach Drawer"
             >
-              <Sparkles className="w-3.5 h-3.5" />
+              <div className="w-4 h-4 rounded-full bg-gradient-to-tr from-[#3B82F6] to-[#00F0FF] p-0.5 flex items-center justify-center">
+                <Sparkles className="w-2.5 h-2.5 text-black" />
+              </div>
               <span>AI Coach</span>
+              <ChevronRight className="w-3.5 h-3.5 text-[#3B82F6]" />
             </button>
-
-            {/* User profile dropdown button */}
-            <div className="flex items-center gap-2 border border-white/5 bg-[#171B24]/40 px-3 py-1.5 rounded-xl">
-              <img 
-                src={profile.avatarUrl || `https://ui-avatars.com/api/?name=${encodeURIComponent(profile.name || user?.email || 'User')}&background=171B24&color=D4AF37`} 
-                alt="Profile" 
-                className="w-5.5 h-5.5 rounded-full object-cover border border-[#D4AF37]/30 bg-black p-0.5" 
-              />
-              <span className="text-xs font-semibold text-white">{profile.name ? profile.name.split(' ')[0] : 'Ahmed'}</span>
-            </div>
           </div>
         </div>
 
@@ -864,6 +862,38 @@ export default function App() {
               />
             )}
 
+            </div>
+            
+            {/* BOTTOM STICKY STATUS BAR */}
+            <div className="bg-[#0B0E17] border-t border-[#181F32] px-6 py-2 flex flex-wrap items-center justify-between text-xs text-[#8A99AD] select-none flex-shrink-0 z-20">
+              <div className="flex items-center gap-5">
+                <div className="flex items-center gap-2">
+                  <span className="font-semibold text-white">Today's Focus:</span>
+                  <span className="text-[#3B82F6] font-bold">3 priorities</span>
+                  <div className="w-16 bg-[#182032] h-1.5 rounded-full overflow-hidden ml-1 hidden sm:block">
+                    <div className="bg-[#3B82F6] h-full w-[60%] rounded-full"></div>
+                  </div>
+                </div>
+                
+                <div className="hidden md:flex items-center gap-2 border-l border-[#181F32] pl-5">
+                  <span className="font-semibold text-white">Next Event:</span>
+                  <span className="text-[#CBD5E1]">Database Systems Lecture Today, 1:00 PM</span>
+                </div>
+
+                <div className="hidden lg:flex items-center gap-2 border-l border-[#181F32] pl-5">
+                  <span className="font-semibold text-white">Study Streak:</span>
+                  <span className="text-[#D4AF37] font-bold">7 days</span>
+                  <span className="text-xs">Keep it up! 🔥</span>
+                </div>
+              </div>
+
+              <button 
+                onClick={() => setIsAICoachOpen(true)}
+                className="flex items-center gap-2 bg-[#131927] hover:bg-[#1A2235] border border-[#2D3954] text-[#D4AF37] px-3 py-1.5 rounded-xl font-semibold text-xs transition-all shadow-sm cursor-pointer ml-auto"
+              >
+                <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
+                <span>AI Quick Action</span>
+              </button>
             </div>
           </main>
           
