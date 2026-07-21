@@ -1,0 +1,12 @@
+{
+	"appId": "sa.himam.app",
+	"appName": "Himam",
+	"webDir": "dist",
+	"bundledWebRuntime": false,
+	"server": {
+		"androidScheme": "https"
+	},
+	"packageClassList": [
+		"CAPCameraPlugin"
+	]
+}

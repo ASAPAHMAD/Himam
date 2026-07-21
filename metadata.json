@@ -1,0 +1,8 @@
+{
+  "name": "Himam",
+  "description": "Himam (هِمَم) — a personalized certification and study planning platform with live scheduling, progress statistics, and AI coaching.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

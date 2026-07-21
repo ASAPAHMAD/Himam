@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Legacy Auto Backup rules for Android 11 and below (API <= 30). See
+  data_extraction_rules.xml for the API 31+ equivalent and the rationale —
+  both files exclude the same WebView session storage path so the exclusion
+  applies across the app's full minSdkVersion range (24+).
+-->
+<full-backup-content>
+    <exclude domain="root" path="app_webview/Local Storage" />
+    <exclude domain="root" path="app_webview/IndexedDB" />
+</full-backup-content>

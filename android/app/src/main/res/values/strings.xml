@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Himam</string>
+    <string name="title_activity_main">Himam</string>
+    <string name="package_name">sa.himam.app</string>
+    <string name="custom_url_scheme">sa.himam.app</string>
+</resources>

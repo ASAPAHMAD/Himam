@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Cairo:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", SFMono-Regular, monospace;
+}
+
+body {
+  background-color: #0B0D12;
+  color: #E0E0E6;
+  font-family: "Inter", sans-serif;
+}
+
+/* Elegant Arabic typography overrides when Arabic language is active */
+.rtl-arabic, .rtl-arabic body {
+  font-family: "Cairo", "Inter", sans-serif !important;
+}
+
+.rtl-arabic h1, .rtl-arabic h2, .rtl-arabic h3, .rtl-arabic h4, .rtl-arabic h5, .rtl-arabic h6, .rtl-arabic .font-display {
+  font-family: "Cairo", "Space Grotesk", sans-serif !important;
+  letter-spacing: normal !important; /* Cairo doesn't need space grotesk letter spacing */
+}
+
+/* Custom scrollbars for Premium Dark SaaS */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0B0D12;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.15);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 175, 55, 0.3);
+}
+
+/* Base custom styles to enhance input/focus ring */
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: rgba(212, 175, 55, 0.4) !important;
+  box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.15);
+}
+
+/* iOS Safe Area Support */
+.safe-pt {
+  padding-top: max(env(safe-area-inset-top, 0px), 1rem);
+}
+.safe-pb {
+  padding-bottom: max(env(safe-area-inset-bottom, 0px), 1rem);
+}
+.safe-py {
+  padding-top: max(env(safe-area-inset-top, 0px), 1rem);
+  padding-bottom: max(env(safe-area-inset-bottom, 0px), 1rem);
+}
+.safe-mt {
+  margin-top: env(safe-area-inset-top, 0px);
+}
+.safe-mb {
+  margin-bottom: env(safe-area-inset-bottom, 0px);
+}
+
