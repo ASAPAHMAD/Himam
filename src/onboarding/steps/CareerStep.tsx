@@ -243,21 +243,21 @@ export default function CareerStep({ profile, onChange }: StepProps) {
             </div>
           </div>
 
-          {/* Academic Timeline & Progress */}
+          {/* Learning Timeline & Progress */}
           <div className="bg-[#171B24]/40 border border-white/5 rounded-xl p-4 space-y-4">
             <div className="flex items-center gap-2 border-b border-white/5 pb-2">
               <Calendar className="w-4 h-4 text-[#D4AF37]" />
-              <span className="text-xs font-semibold text-white">Academic Timeline</span>
+              <span className="text-xs font-semibold text-white">Learning Timeline</span>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <label className="block text-xs font-semibold text-white">
-                Academic Year <span className="text-[#D4AF37]">*</span>
+                Year / Stage of Study <span className="text-[#D4AF37]">*</span>
                 <select
                   value={profile.academicYear || ''}
                   onChange={e => onChange({ academicYear: e.target.value })}
                   className="mt-1.5 w-full rounded-lg bg-[#0B0D12] border border-white/10 px-3 py-3 text-sm text-white focus:border-[#D4AF37]/50"
                 >
-                  <option value="" disabled>Select academic year</option>
+                  <option value="" disabled>Select stage / year</option>
                   <option value="First Year (Freshman)">First Year (Freshman)</option>
                   <option value="Second Year (Sophomore)">Second Year (Sophomore)</option>
                   <option value="Third Year (Junior)">Third Year (Junior)</option>
@@ -611,7 +611,7 @@ export default function CareerStep({ profile, onChange }: StepProps) {
                         { name: 'Canvas LMS', desc: 'Secure OAuth Sync', icon: Cloud },
                         { name: 'Moodle Portal', desc: 'Syllabus & Course Parser', icon: RefreshCw },
                         { name: 'Blackboard Learn', desc: 'Active Schedule Link', icon: Database },
-                        { name: 'Microsoft Teams', desc: 'Academic Roster Sync', icon: GraduationCap }
+                        { name: 'Microsoft Teams', desc: 'Roster & Workspace Sync', icon: GraduationCap }
                       ].map((prov, idx) => (
                         <button
                           key={idx}

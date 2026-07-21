@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { Profile } from '../../models/types';
-import { getCountryOptions, getCountryTimezones, getDefaultTimezoneForCountry, getTimezoneDisplayLabel, searchCountries } from '../../services/timezone';
+import { detectUserCountryAndTimezone, getCountryOptions, getCountryTimezones, getDefaultTimezoneForCountry, getTimezoneDisplayLabel, searchCountries } from '../../services/timezone';
 import { Sparkles, Smile, Image, Loader2, AlertCircle, Camera, UploadCloud } from 'lucide-react';
 import { useAuth } from '../../auth/AuthProvider';
 import { supabase } from '../../lib/supabase';
@@ -188,8 +188,22 @@ export default function IdentityStep({ profile, onChange }: StepProps) {
 
   const countryTimezones = useMemo(() => getCountryTimezones(profile.country), [profile.country]);
 
-  // If no avatar is selected, set default preset
+  // Auto-detect country & timezone if not already set, or set default avatar
   React.useEffect(() => {
+    if (!profile.country || !profile.timezone) {
+      const detected = detectUserCountryAndTimezone();
+      const updates: Partial<Profile> = {};
+      if (!profile.country && detected.country) {
+        updates.country = detected.country;
+        setCountryQuery(detected.country);
+      }
+      if (!profile.timezone && detected.timezone) {
+        updates.timezone = detected.timezone;
+      }
+      if (Object.keys(updates).length > 0) {
+        onChange(updates);
+      }
+    }
     if (!profile.avatarUrl) {
       const defaultDataUrl = `data:image/svg+xml;utf8,${encodeURIComponent(PRESET_AVATARS[0].svg)}`;
       onChange({ avatarUrl: defaultDataUrl });

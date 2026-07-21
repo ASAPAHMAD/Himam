@@ -137,32 +137,32 @@ export default function AuthScreen({ initialMode = 'signin' }: { initialMode?: M
     );
   }
 
-  return <main className="min-h-screen bg-[#0B0D12] text-[#E0E0E6] grid place-items-center p-5">
-    <section className="w-full max-w-md bg-[#171B24] border border-white/10 rounded-2xl p-6 sm:p-8 shadow-2xl">
+  return <main className="min-h-screen bg-[#0B0D12] text-[#E0E0E6] grid place-items-center p-4 sm:p-6 safe-py safe-px">
+    <section className="w-full max-w-md bg-[#171B24] border border-white/10 rounded-2xl p-5 sm:p-8 shadow-2xl">
       <div className="w-11 h-11 grid place-items-center rounded-xl bg-[#171B24] border border-[#D4AF37]/25 text-[#D4AF37]"><Sparkles className="w-5 h-5" /></div>
-      <p className="text-[10px] tracking-[0.18em] uppercase font-bold text-[#D4AF37] mt-6">Himam <span dir="rtl" lang="ar">هِمَم</span></p>
-      <h1 className="font-serif text-3xl font-bold text-white mt-2">{title}</h1>
-      <p className="text-sm text-[#94949C] mt-2">Your progress, streaks and goals stay with your account.</p>
-      <p className="mt-3 text-sm text-[#D4AF37] font-medium">Start your learning journey in minutes.</p>
+      <p className="text-[10px] tracking-[0.18em] uppercase font-bold text-[#D4AF37] mt-5 sm:mt-6">Himam <span dir="rtl" lang="ar">هِمَم</span></p>
+      <h1 className="font-serif text-2xl sm:text-3xl font-bold text-white mt-1.5">{title}</h1>
+      <p className="text-xs sm:text-sm text-[#94949C] mt-1.5">Your progress, streaks and goals stay with your account.</p>
+      <p className="mt-2.5 text-xs sm:text-sm text-[#D4AF37] font-medium">Start your learning journey in minutes.</p>
       {(mode === 'signin' || mode === 'signup') && (
         <div className="mt-5 grid grid-cols-2 gap-2 rounded-xl border border-white/10 bg-[#0B0D12] p-1.5">
           <button
             type="button"
             onClick={() => changeMode('signup')}
-            className={`rounded-lg px-3 py-2.5 text-sm font-bold transition-all ${mode === 'signup' ? 'bg-gradient-to-r from-[#B8932D] to-[#D4AF37] text-white' : 'text-[#94949C] hover:text-white'}`}
+            className={`rounded-lg px-3 py-2.5 min-h-[44px] text-xs sm:text-sm font-bold transition-all ${mode === 'signup' ? 'bg-gradient-to-r from-[#B8932D] to-[#D4AF37] text-white' : 'text-[#94949C] hover:text-white'}`}
           >
             Create account
           </button>
           <button
             type="button"
             onClick={() => changeMode('signin')}
-            className={`rounded-lg px-3 py-2.5 text-sm font-bold transition-all ${mode === 'signin' ? 'bg-gradient-to-r from-[#B8932D] to-[#D4AF37] text-white' : 'text-[#94949C] hover:text-white'}`}
+            className={`rounded-lg px-3 py-2.5 min-h-[44px] text-xs sm:text-sm font-bold transition-all ${mode === 'signin' ? 'bg-gradient-to-r from-[#B8932D] to-[#D4AF37] text-white' : 'text-[#94949C] hover:text-white'}`}
           >
             Sign in
           </button>
         </div>
       )}
-      <form onSubmit={submit} className="space-y-4 mt-6">
+      <form onSubmit={submit} className="space-y-4 mt-5">
         {mode === 'signup' && (
           <>
             <label className="block text-xs font-semibold text-white">
@@ -173,7 +173,7 @@ export default function AuthScreen({ initialMode = 'signin' }: { initialMode?: M
                 value={fullName}
                 onChange={e => setFullName(e.target.value)}
                 placeholder="Dr. John Doe"
-                className="mt-1.5 w-full rounded-lg bg-[#0B0D12] border border-white/10 px-3 py-3 text-sm"
+                className="mt-1.5 w-full rounded-lg bg-[#0B0D12] border border-white/10 px-3.5 py-3 text-base sm:text-sm min-h-[44px]"
               />
             </label>
             <label className="block text-xs font-semibold text-white">
@@ -184,7 +184,7 @@ export default function AuthScreen({ initialMode = 'signin' }: { initialMode?: M
                 value={username}
                 onChange={e => setUsername(e.target.value)}
                 placeholder="johndoe_md"
-                className="mt-1.5 w-full rounded-lg bg-[#0B0D12] border border-white/10 px-3 py-3 text-sm"
+                className="mt-1.5 w-full rounded-lg bg-[#0B0D12] border border-white/10 px-3.5 py-3 text-base sm:text-sm min-h-[44px]"
               />
             </label>
           </>
@@ -199,12 +199,12 @@ export default function AuthScreen({ initialMode = 'signin' }: { initialMode?: M
               value={email}
               onChange={e => setEmail(e.target.value)}
               placeholder={mode === 'signin' ? 'you@example.com or username_123' : 'you@example.com'}
-              className="mt-1.5 w-full rounded-lg bg-[#0B0D12] border border-white/10 px-3 py-3 text-sm"
+              className="mt-1.5 w-full rounded-lg bg-[#0B0D12] border border-white/10 px-3.5 py-3 text-base sm:text-sm min-h-[44px]"
             />
           </label>
         )}
-        {isPasswordMode && <label className="block text-xs font-semibold text-white">{mode === 'reset' ? 'New password' : 'Password'}<div className="mt-1.5 flex items-center gap-2 rounded-lg border border-white/10 bg-[#0B0D12] px-3 py-3"><input type={showPassword ? 'text' : 'password'} autoComplete={mode === 'signin' ? 'current-password' : 'new-password'} required minLength={mode === 'signin' ? 1 : 8} value={password} onChange={e => setPassword(e.target.value)} placeholder={mode === 'signin' ? 'Your password' : '8+ characters, letter and number'} className="w-full bg-transparent text-sm outline-none" /><button type="button" onClick={() => setShowPassword(v => !v)} className="text-[10px] font-semibold uppercase tracking-wide text-[#D4AF37]">{showPassword ? 'Hide' : 'Show'}</button></div></label>}
-        {(mode === 'signup' || mode === 'reset') && <label className="block text-xs font-semibold text-white">Confirm password<div className="mt-1.5 flex items-center gap-2 rounded-lg border border-white/10 bg-[#0B0D12] px-3 py-3"><input type={showPassword ? 'text' : 'password'} autoComplete="new-password" required value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} className="w-full bg-transparent text-sm outline-none" /></div></label>}
+        {isPasswordMode && <label className="block text-xs font-semibold text-white">{mode === 'reset' ? 'New password' : 'Password'}<div className="mt-1.5 flex items-center gap-2 rounded-lg border border-white/10 bg-[#0B0D12] px-3.5 py-2.5 min-h-[44px]"><input type={showPassword ? 'text' : 'password'} autoComplete={mode === 'signin' ? 'current-password' : 'new-password'} required minLength={mode === 'signin' ? 1 : 8} value={password} onChange={e => setPassword(e.target.value)} placeholder={mode === 'signin' ? 'Your password' : '8+ characters, letter and number'} className="w-full bg-transparent text-base sm:text-sm outline-none" /><button type="button" onClick={() => setShowPassword(v => !v)} className="text-xs font-semibold uppercase tracking-wide text-[#D4AF37] px-2 py-1 min-h-[36px] flex items-center">{showPassword ? 'Hide' : 'Show'}</button></div></label>}
+        {(mode === 'signup' || mode === 'reset') && <label className="block text-xs font-semibold text-white">Confirm password<div className="mt-1.5 flex items-center gap-2 rounded-lg border border-white/10 bg-[#0B0D12] px-3.5 py-2.5 min-h-[44px]"><input type={showPassword ? 'text' : 'password'} autoComplete="new-password" required value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} className="w-full bg-transparent text-base sm:text-sm outline-none" /></div></label>}
         
         {mode === 'signup' && (
           <div className="flex items-start gap-3 text-xs text-[#94949C] pt-1 selection:bg-transparent">
@@ -214,7 +214,7 @@ export default function AuthScreen({ initialMode = 'signin' }: { initialMode?: M
               id="agreeToTermsCheckbox"
               checked={agreeToTerms}
               onChange={e => setAgreeToTerms(e.target.checked)}
-              className="mt-0.5 rounded border-white/10 bg-[#0B0D12] text-[#D4AF37] focus:ring-[#D4AF37]/40 cursor-pointer"
+              className="mt-1 w-4 h-4 rounded border-white/10 bg-[#0B0D12] text-[#D4AF37] focus:ring-[#D4AF37]/40 cursor-pointer flex-shrink-0"
             />
             <label htmlFor="agreeToTermsCheckbox" className="cursor-pointer select-none leading-relaxed text-[#94949C]">
               I agree to the{' '}
@@ -237,10 +237,10 @@ export default function AuthScreen({ initialMode = 'signin' }: { initialMode?: M
           </div>
         )}
 
-        <button disabled={loading} className="w-full rounded-lg py-3 bg-gradient-to-r from-[#B8932D] to-[#D4AF37] text-white font-bold text-sm disabled:opacity-50">{loading ? 'Please wait…' : mode === 'signup' ? 'Create account' : mode === 'signin' ? 'Sign in' : mode === 'forgot' ? 'Send reset link' : 'Update password'}</button>
+        <button disabled={loading} className="w-full rounded-lg py-3 min-h-[44px] bg-gradient-to-r from-[#B8932D] to-[#D4AF37] text-white font-bold text-sm active:scale-[0.99] transition-all disabled:opacity-50 flex items-center justify-center">{loading ? 'Please wait…' : mode === 'signup' ? 'Create account' : mode === 'signin' ? 'Sign in' : mode === 'forgot' ? 'Send reset link' : 'Update password'}</button>
       </form>
       {message && <p role="status" className="mt-3 text-xs leading-relaxed text-[#D4AF37]">{message}</p>}
-      {mode === 'signin' && <button type="button" onClick={() => changeMode('forgot')} className="mt-3 text-xs text-[#D4AF37] font-bold">Forgot password?</button>}
+      {mode === 'signin' && <button type="button" onClick={() => changeMode('forgot')} className="mt-3 text-xs text-[#D4AF37] font-bold py-1 min-h-[36px] flex items-center">Forgot password?</button>}
       {mode !== 'forgot' && mode !== 'reset' && (
         <>
           <div className="flex items-center gap-3 my-5 text-[10px] text-[#55555B]">
@@ -249,10 +249,10 @@ export default function AuthScreen({ initialMode = 'signin' }: { initialMode?: M
             <span className="h-px flex-1 bg-white/10" />
           </div>
           <div className="grid grid-cols-2 gap-3">
-            <button type="button" disabled={loading} onClick={() => socialSignIn('google')} className="border border-white/10 rounded-lg py-2.5 text-xs font-bold flex justify-center gap-2 items-center hover:bg-white/5 disabled:opacity-50">
+            <button type="button" disabled={loading} onClick={() => socialSignIn('google')} className="border border-white/10 rounded-lg py-2.5 min-h-[44px] text-xs font-bold flex justify-center gap-2 items-center hover:bg-white/5 active:scale-[0.98] transition-all disabled:opacity-50">
               <Chrome className="w-4 h-4" /> Google
             </button>
-            <button type="button" disabled={loading} onClick={() => socialSignIn('apple')} className="border border-white/10 rounded-lg py-2.5 text-xs font-bold flex justify-center gap-2 items-center hover:bg-white/5 disabled:opacity-50">
+            <button type="button" disabled={loading} onClick={() => socialSignIn('apple')} className="border border-white/10 rounded-lg py-2.5 min-h-[44px] text-xs font-bold flex justify-center gap-2 items-center hover:bg-white/5 active:scale-[0.98] transition-all disabled:opacity-50">
               <Apple className="w-4 h-4" /> Apple
             </button>
           </div>

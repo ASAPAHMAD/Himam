@@ -3046,7 +3046,7 @@ Please provide a personalized, deeply supportive diagnostic explanation.
             {/* Custom targets and categories placeholder */}
             <div className="col-span-1 md:col-span-2 bg-[#171B24]/40 border border-white/5 rounded-xl p-5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <div className="space-y-1">
-                <h4 className="text-xs font-bold uppercase text-[#D4AF37] tracking-wider">Academic Degrees & Custom targets</h4>
+                <h4 className="text-xs font-bold uppercase text-[#D4AF37] tracking-wider">Certifications, Degrees & Custom Goals</h4>
                 <p className="text-xs text-[#94949C] leading-relaxed max-w-xl">
                   Configure custom goals such as University degrees, language training (e.g. Spanish A1), or custom technical skills. Himam allocates dedicated time blocks for any target you configure.
                 </p>

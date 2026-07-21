@@ -58,6 +58,14 @@ export interface AIContextFocusLesson {
   courseShortLabel: string;
 }
 
+export interface AIContextKnowledgeDoc {
+  id: string;
+  fileName: string;
+  fileType: string;
+  summary?: string;
+  fileSize?: string;
+}
+
 export interface AIContext {
   learner: {
     name: string;
@@ -94,6 +102,7 @@ export interface AIContext {
   };
   courses: AIContextCourseSummary[];
   customGoals: string[];
+  knowledgeDocs?: AIContextKnowledgeDoc[];
   progress: {
     overallCompletionPercentage: number;
     totalLessonsRemaining: number;
@@ -274,6 +283,28 @@ export function buildAIContext(
     },
     courses,
     customGoals,
+    knowledgeDocs: (() => {
+      try {
+        if (typeof window !== 'undefined' && window.localStorage) {
+          const raw = localStorage.getItem('himam_knowledge_library');
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            if (Array.isArray(parsed)) {
+              return parsed.slice(0, 10).map((d: any) => ({
+                id: d.id || '',
+                fileName: d.fileName || 'Document',
+                fileType: d.fileType || 'PDF',
+                summary: d.summary || '',
+                fileSize: d.fileSize || ''
+              }));
+            }
+          }
+        }
+      } catch {
+        // fallback
+      }
+      return [];
+    })(),
     progress: {
       overallCompletionPercentage: metrics.overall.completionPercentage,
       totalLessonsRemaining: metrics.overall.remainingLessons,

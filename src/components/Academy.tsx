@@ -69,7 +69,7 @@ export default function Academy({
             <button
               key={tab.id}
               onClick={() => handleSubTabClick(tab.id)}
-              className={`flex items-center gap-2 px-4 py-2 text-xs font-semibold rounded-lg transition-all whitespace-nowrap ${
+              className={`flex items-center gap-2 px-4 py-2.5 min-h-[44px] text-xs font-semibold rounded-lg transition-all whitespace-nowrap active:scale-[0.98] ${
                 isActive
                   ? 'bg-gradient-to-r from-[#B8932D]/20 to-[#D4AF37]/20 text-[#D4AF37] border border-[#D4AF37]/20 shadow-sm'
                   : 'text-[#94949C] hover:bg-white/5 hover:text-white border border-transparent'

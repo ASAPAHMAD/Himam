@@ -46,7 +46,7 @@ export default function SettingsHub({
       <div className="bg-[#171B24]/80 backdrop-blur border border-white/5 p-1.5 rounded-xl flex overflow-x-auto gap-1 scrollbar-none select-none">
         <button
           onClick={() => handleSubTabClick('preferences')}
-          className={`flex items-center gap-2 px-4 py-2 text-xs font-semibold rounded-lg transition-all whitespace-nowrap ${
+          className={`flex items-center gap-2 px-4 py-2.5 min-h-[44px] text-xs font-semibold rounded-lg transition-all whitespace-nowrap active:scale-[0.98] ${
             activeSubTab === 'preferences'
               ? 'bg-gradient-to-r from-[#B8932D]/20 to-[#D4AF37]/20 text-[#D4AF37] border border-[#D4AF37]/20 shadow-sm'
               : 'text-[#94949C] hover:bg-white/5 hover:text-white border border-transparent'
@@ -59,7 +59,7 @@ export default function SettingsHub({
         {configured && (
           <button
             onClick={() => handleSubTabClick('account')}
-            className={`flex items-center gap-2 px-4 py-2 text-xs font-semibold rounded-lg transition-all whitespace-nowrap ${
+            className={`flex items-center gap-2 px-4 py-2.5 min-h-[44px] text-xs font-semibold rounded-lg transition-all whitespace-nowrap active:scale-[0.98] ${
               activeSubTab === 'account'
                 ? 'bg-gradient-to-r from-[#B8932D]/20 to-[#D4AF37]/20 text-[#D4AF37] border border-[#D4AF37]/20 shadow-sm'
                 : 'text-[#94949C] hover:bg-white/5 hover:text-white border border-transparent'

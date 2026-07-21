@@ -165,9 +165,9 @@ export const PRIVACY_POLICY: Record<'en' | 'ar', LegalDocument> = {
         title: "Information We Collect",
         content: "We collect several types of data to provide a highly personalized, absolute career engine experience. This includes: \n\n" +
           "• Account Information: Name, username, email address, password, profile avatar, country, and timezone.\n" +
-          "• Learning Goals: Academic objectives, target certifications, exam schedules, study windows, and milestone progress tracking.\n" +
+          "• Learning Goals: Learning objectives, target certifications, professional exams, study windows, and milestone progress tracking.\n" +
           "• Career Trajectory Information: Current job, target positions, career goals, target monthly compensation, and skills profile.\n" +
-          "• Academic & Graduation Tracking: University name, academic year, major field, GPA, active courses, expected graduation targets, and study schedule logs.\n" +
+          "• Learning & Performance Tracking: Institution or organization name, stage/year of study, field of study, performance score/GPA, active courses/modules, expected completion targets, and study schedule logs.\n" +
           "• Internship Application History: Records of applications logged (company, role, status pipeline, and notes).\n" +
           "• Capstone Project Metrics: Topics, supervisor details, delivery milestones, and timeline targets.\n" +
           "• Uploaded Documents & Text: Text and metrics processed for exam reviews and study analytics.\n" +

@@ -118,11 +118,12 @@ export default function IntegratedAICoach({ state, profile, onClose }: Integrate
   };
 
   const suggestionChips = [
-    { text: 'Explain this course', intent: 'explain_lesson', display: 'Explain this course' },
-    { text: 'Am I on track?', intent: 'am_i_on_track', display: 'Am I on track?' },
-    { text: 'Adjust my schedule', intent: 'adjust_schedule', display: 'Adjust my schedule' },
-    { text: 'Find internship opportunities', intent: 'ask_anything', display: 'Find internships' },
-    { text: 'Generate study plan', intent: 'generate_learning_plan', display: 'Generate study plan' }
+    { text: 'Explain this lesson in detail', intent: 'explain_lesson', display: 'Explain this lesson' },
+    { text: 'Am I on track to meet my goals?', intent: 'am_i_on_track', display: 'Am I on track?' },
+    { text: 'Generate a study plan for me', intent: 'generate_learning_plan', display: 'Generate study plan' },
+    { text: 'Find relevant tech internship opportunities', intent: 'ask_anything', display: 'Find internships' },
+    { text: 'Summarize my uploaded PDF document', intent: 'ask_anything', display: 'Summarize my PDF' },
+    { text: 'Quiz me on my active study materials', intent: 'ask_anything', display: 'Quiz me' }
   ];
 
   return (

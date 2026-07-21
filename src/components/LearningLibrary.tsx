@@ -29,6 +29,7 @@ import { Profile } from '../models/types';
 import { GoalSearchEntry, LocalCatalogGoalSearchProvider } from '../onboarding/steps/goalSearch';
 import { useGoalSearch } from '../hooks/useGoalSearch';
 import { LearningGoalPreview } from './LearningGoalPreview';
+import { KnowledgeLibrary } from './KnowledgeLibrary';
 
 interface LearningLibraryProps {
   profile: Profile;
@@ -160,6 +161,7 @@ export function matchesCategory(goal: GoalSearchEntry, catId: string): boolean {
 }
 
 export default function LearningLibrary({ profile, onUpdateProfile, setActiveTab }: LearningLibraryProps) {
+  const [libraryTab, setLibraryTab] = useState<'catalog' | 'knowledge'>('catalog');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [previewGoal, setPreviewGoal] = useState<GoalSearchEntry | null>(null);
@@ -221,7 +223,36 @@ export default function LearningLibrary({ profile, onUpdateProfile, setActiveTab
 
   return (
     <div className="space-y-6" id="learning-library-view">
-      {/* Header Panel */}
+      {/* Top Sub-Tab Navigation Bar */}
+      <div className="bg-[#171B24]/80 backdrop-blur border border-white/5 p-1.5 rounded-xl flex overflow-x-auto gap-1 scrollbar-none select-none">
+        <button
+          onClick={() => setLibraryTab('catalog')}
+          className={`flex items-center gap-2 px-4 py-2.5 min-h-[44px] text-xs font-semibold rounded-lg transition-all whitespace-nowrap active:scale-[0.98] ${
+            libraryTab === 'catalog'
+              ? 'bg-gradient-to-r from-[#B8932D]/20 to-[#D4AF37]/20 text-[#D4AF37] border border-[#D4AF37]/20 shadow-sm'
+              : 'text-[#94949C] hover:bg-white/5 hover:text-white border border-transparent'
+          }`}
+        >
+          <Compass className="w-4 h-4" /> Course & Goal Catalog
+        </button>
+
+        <button
+          onClick={() => setLibraryTab('knowledge')}
+          className={`flex items-center gap-2 px-4 py-2.5 min-h-[44px] text-xs font-semibold rounded-lg transition-all whitespace-nowrap active:scale-[0.98] ${
+            libraryTab === 'knowledge'
+              ? 'bg-gradient-to-r from-[#B8932D]/20 to-[#D4AF37]/20 text-[#D4AF37] border border-[#D4AF37]/20 shadow-sm'
+              : 'text-[#94949C] hover:bg-white/5 hover:text-white border border-transparent'
+          }`}
+        >
+          <BookOpen className="w-4 h-4" /> Knowledge Library & Uploads
+        </button>
+      </div>
+
+      {libraryTab === 'knowledge' ? (
+        <KnowledgeLibrary setActiveTab={setActiveTab} />
+      ) : (
+        <>
+          {/* Header Panel */}
       <div className="bg-[#11141C] border border-white/5 rounded-2xl p-6 relative overflow-hidden">
         <div className="absolute -top-12 -right-12 w-40 h-40 bg-[#D4AF37]/5 rounded-full blur-2xl" />
         <div className="space-y-2">
@@ -450,6 +481,8 @@ export default function LearningLibrary({ profile, onUpdateProfile, setActiveTab
           onConfirm={handleToggleGoal}
           onCancel={() => setPreviewGoal(null)}
         />
+      )}
+        </>
       )}
     </div>
   );

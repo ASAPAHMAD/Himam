@@ -11,6 +11,64 @@ body {
   background-color: #0B0D12;
   color: #E0E0E6;
   font-family: "Inter", sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Prevent auto-zoom on iOS when focusing inputs */
+@media screen and (max-width: 768px) {
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* iOS Momentum Scrolling */
+.overflow-y-auto, .overflow-x-auto, .overflow-auto {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Hide scrollbars when desired */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Responsive Design System Utility Classes */
+.app-page-container {
+  width: 100%;
+  max-width: 80rem; /* max-w-7xl */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem; /* 16px - 8pt grid base */
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .app-page-container {
+    padding-left: 1.5rem; /* 24px */
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .app-page-container {
+    padding-left: 2rem; /* 32px */
+    padding-right: 2rem;
+  }
+}
+
+/* Standard Touch Target Utility (Minimum 44x44px for Apple HIG) */
+.min-touch-target {
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Elegant Arabic typography overrides when Arabic language is active */

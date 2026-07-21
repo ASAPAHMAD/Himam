@@ -66,13 +66,13 @@ export default function Onboarding({ profile, onUpdateProfile }: OnboardingProps
   };
 
   return (
-    <main className="min-h-screen bg-[#0B0D12] text-[#E0E0E6] grid place-items-center p-5">
-      <section className="w-full max-w-lg bg-[#171B24] border border-white/10 rounded-2xl p-6 sm:p-8 shadow-2xl">
+    <main className="min-h-screen bg-[#0B0D12] text-[#E0E0E6] grid place-items-center p-4 sm:p-6 safe-py safe-px">
+      <section className="w-full max-w-lg bg-[#171B24] border border-white/10 rounded-2xl p-5 sm:p-8 shadow-2xl">
         <div className="w-11 h-11 grid place-items-center rounded-xl bg-[#171B24] border border-[#D4AF37]/25 text-[#D4AF37]"><Sparkles className="w-5 h-5" /></div>
-        <p className="text-[10px] tracking-[0.18em] uppercase font-bold text-[#D4AF37] mt-6">Step {stepIndex + 1} of {STEP_ORDER.length}</p>
-        <h1 className="font-serif text-2xl font-bold text-white mt-2">{STEP_LABELS[step]}</h1>
+        <p className="text-[10px] tracking-[0.18em] uppercase font-bold text-[#D4AF37] mt-5 sm:mt-6">Step {stepIndex + 1} of {STEP_ORDER.length}</p>
+        <h1 className="font-serif text-xl sm:text-2xl font-bold text-white mt-1.5">{STEP_LABELS[step]}</h1>
 
-        <div className="flex gap-1.5 mt-4 mb-6">
+        <div className="flex gap-1.5 mt-3.5 mb-5 sm:mb-6">
           {STEP_ORDER.map((s, i) => (
             <div key={s} className={`h-1 flex-1 rounded-full ${i <= stepIndex ? 'bg-[#D4AF37]' : 'bg-white/10'}`} />
           ))}
@@ -82,13 +82,13 @@ export default function Onboarding({ profile, onUpdateProfile }: OnboardingProps
 
         {error && <p role="alert" className="mt-3 text-xs text-red-300">{error}</p>}
 
-        <div className="flex items-center justify-between mt-8">
+        <div className="flex items-center justify-between mt-6 sm:mt-8">
           <button type="button" onClick={goBack} disabled={stepIndex === 0}
-            className="text-sm text-[#94949C] font-semibold inline-flex items-center gap-1 disabled:opacity-30">
+            className="text-sm text-[#94949C] font-semibold inline-flex items-center gap-1 px-3 py-2 min-h-[44px] disabled:opacity-30 active:scale-[0.98]">
             <ChevronLeft className="w-4 h-4" /> Back
           </button>
           <button type="button" onClick={goNext}
-            className="rounded-lg px-5 py-2.5 text-sm font-bold bg-gradient-to-r from-[#B8932D] to-[#D4AF37] text-white inline-flex items-center gap-1">
+            className="rounded-lg px-5 py-2.5 min-h-[44px] text-sm font-bold bg-gradient-to-r from-[#B8932D] to-[#D4AF37] text-white inline-flex items-center justify-center gap-1 active:scale-[0.98] transition-all">
             {isLastStep ? 'Finish' : 'Continue'} <ChevronRight className="w-4 h-4" />
           </button>
         </div>

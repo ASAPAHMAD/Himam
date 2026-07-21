@@ -1512,7 +1512,7 @@ export default function MyLearning({
                     <div className="bg-[#171B24]/60 border border-white/5 rounded-xl p-4 space-y-2">
                       <p className="font-semibold text-white">How it works</p>
                       <p className="text-[#94949C] leading-relaxed">
-                        Our AI Academic Assistant will analyze your study goal and map out a structured professional syllabus comprising modules, deep-dive lessons, and integrated test checkpoints.
+                        Our Himam AI Assistant will analyze your study goal and map out a structured professional syllabus comprising modules, deep-dive lessons, and integrated test checkpoints.
                       </p>
                     </div>
 

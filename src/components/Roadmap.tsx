@@ -710,7 +710,7 @@ Structure your reply into 2 brief, high-impact paragraphs:
                               onChange={e => setAcademicYear(e.target.value)}
                               className="w-full bg-[#11141C] border border-white/5 text-xs text-white rounded-lg p-2.5 focus:outline-none focus:border-[#D4AF37]/30"
                             >
-                              <option value="">Select academic year</option>
+                              <option value="">Select year of study</option>
                               <option value="First Year (Freshman)">First Year (Freshman)</option>
                               <option value="Second Year (Sophomore)">Second Year (Sophomore)</option>
                               <option value="Third Year (Junior)">Third Year (Junior)</option>

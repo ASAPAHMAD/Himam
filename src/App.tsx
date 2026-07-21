@@ -24,6 +24,7 @@ import Academy from './components/Academy';
 import ProgressHub from './components/ProgressHub';
 import SettingsHub from './components/SettingsHub';
 import IntegratedAICoach from './components/IntegratedAICoach';
+import MoreSheet from './components/MoreSheet';
 import { 
   LayoutDashboard, 
   BarChart3, 
@@ -40,7 +41,8 @@ import {
   FileText,
   Search,
   Bell,
-  Menu
+  Menu,
+  MoreHorizontal
 } from 'lucide-react';
 
 const STORE_KEY = "ahmad_ledger_v3";
@@ -66,6 +68,7 @@ const LEVELS = [
 export default function App() {
   const { user, loading: authLoading, configured, signOut } = useAuth();
   const { t, i18n } = useTranslation();
+  const [isMoreOpen, setIsMoreOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('dashboard');
   const [isAICoachOpen, setIsAICoachOpen] = useState(true);
   const [studyCenterHighlightedLessonId, setStudyCenterHighlightedLessonId] = useState<string | null>(null);
@@ -521,7 +524,7 @@ export default function App() {
               Himam <span className="text-[#D4AF37]" dir="rtl" lang="ar">هِمَم</span>
             </div>
             <div className="text-[9px] uppercase tracking-wider text-[#94949C] font-semibold mt-0.5">
-              AI Career &amp; Academic OS
+              AI Learning &amp; Career OS
             </div>
           </div>
         </div>
@@ -633,30 +636,59 @@ export default function App() {
         </div>
       </div>
 
-      {/* MOBILE LOWER BAR NAVIGATION */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-[#11141C] border-t border-white/5 z-50 flex overflow-x-auto justify-around select-none pb-[calc(env(safe-area-inset-bottom,0px)+8px)] pt-2.5">
+      {/* MOBILE LOWER BAR NAVIGATION (5 TABS ONLY) */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-[#11141C]/95 backdrop-blur-xl border-t border-white/10 z-50 flex justify-around items-center select-none pb-[calc(env(safe-area-inset-bottom,0px)+6px)] pt-2 px-2 safe-px shadow-2xl">
         {[
-          { id: 'dashboard', label: t('menu.dashboard'), icon: LayoutDashboard },
-          { id: 'my-learning', label: t('menu.learning'), icon: BookOpen },
-          { id: 'ai-coach', label: t('menu.ai_coach'), icon: Sparkles },
-          { id: 'roadmap', label: t('menu.career'), icon: Compass },
-          { id: 'settings', label: t('menu.settings'), icon: Settings }
+          { id: 'dashboard', label: 'Overview', icon: LayoutDashboard },
+          { id: 'my-learning', label: 'Learning', icon: BookOpen },
+          { id: 'ai-coach', label: 'AI', icon: Sparkles, isAi: true },
+          { id: 'roadmap', label: 'Career', icon: Compass },
+          { id: 'more', label: 'More', icon: MoreHorizontal, isMore: true }
         ].map(item => {
           const Icon = item.icon;
-          const isActive = activeTab === item.id || 
+          const isActive = !item.isMore && (
+            activeTab === item.id || 
             (item.id === 'my-learning' && activeTab === 'academy') ||
-            (item.id === 'roadmap' && activeTab === 'roadmap') ||
-            (item.id === 'settings' && activeTab === 'settings');
+            (item.id === 'roadmap' && activeTab === 'roadmap')
+          );
+
+          if (item.isAi) {
+            return (
+              <button
+                key={item.id}
+                onClick={() => setActiveTab('ai-coach')}
+                className="relative -top-3 flex flex-col items-center justify-center group active:scale-95 transition-transform"
+              >
+                <div className={`w-12 h-12 rounded-full p-0.5 shadow-lg shadow-[#D4AF37]/20 transition-all ${
+                  isActive 
+                    ? 'bg-gradient-to-tr from-[#D4AF37] via-[#E6C35C] to-[#5DA9FF] ring-2 ring-[#D4AF37]/40 scale-105' 
+                    : 'bg-gradient-to-tr from-[#D4AF37]/80 to-[#5DA9FF]/80 hover:scale-105'
+                }`}>
+                  <div className="w-full h-full bg-[#11141C] rounded-full flex items-center justify-center border border-white/10">
+                    <Sparkles className="w-5 h-5 text-[#D4AF37]" />
+                  </div>
+                </div>
+                <span className="text-[9px] font-bold text-[#D4AF37] tracking-tight mt-1">AI</span>
+              </button>
+            );
+          }
+
           return (
             <button
               key={item.id}
-              onClick={() => setActiveTab(item.id)}
-              className={`flex flex-col items-center gap-1 py-1 px-3 min-w-[62px] text-center transition-all ${
-                isActive ? 'text-[#D4AF37]' : 'text-[#94949C]'
+              onClick={() => {
+                if (item.isMore) {
+                  setIsMoreOpen(true);
+                } else {
+                  setActiveTab(item.id);
+                }
+              }}
+              className={`flex flex-col items-center justify-center gap-1 py-1 px-2 min-w-[56px] min-h-[44px] text-center transition-all active:scale-95 rounded-xl ${
+                isActive ? 'text-[#D4AF37] font-bold' : 'text-[#94949C] hover:text-white'
               }`}
             >
-              <Icon className="w-4 h-4" />
-              <span className="text-[8px] font-semibold tracking-tight whitespace-nowrap">{item.label}</span>
+              <Icon className={`w-5 h-5 ${isActive ? 'scale-110 text-[#D4AF37]' : ''} transition-transform`} />
+              <span className="text-[9px] leading-none font-semibold tracking-tight whitespace-nowrap">{item.label}</span>
             </button>
           );
         })}
@@ -681,14 +713,14 @@ export default function App() {
             {/* Calendar & Bell Notification Icons */}
             <button 
               onClick={() => setActiveTab('calendar')}
-              className="p-2 bg-[#171B24]/40 hover:bg-white/5 border border-white/5 rounded-xl text-[#94949C] hover:text-white transition-all relative"
+              className="p-2 bg-[#171B24]/40 hover:bg-white/5 border border-white/5 rounded-xl text-[#94949C] hover:text-white transition-all relative min-touch-target"
               title="Study Calendar"
             >
               <Calendar className="w-4 h-4" />
             </button>
             <button 
               onClick={() => setActiveTab('settings')}
-              className="p-2 bg-[#171B24]/40 hover:bg-white/5 border border-white/5 rounded-xl text-[#94949C] hover:text-white transition-all relative"
+              className="p-2 bg-[#171B24]/40 hover:bg-white/5 border border-white/5 rounded-xl text-[#94949C] hover:text-white transition-all relative min-touch-target"
               title="Notifications"
             >
               <Bell className="w-4 h-4" />
@@ -722,28 +754,28 @@ export default function App() {
         </div>
 
         {/* MOBILE TOP HEADER */}
-        <div className="md:hidden flex items-center justify-between bg-[#11141C] border-b border-white/5 px-4 pb-2.5 pt-[calc(env(safe-area-inset-top,0px)+10px)] select-none flex-shrink-0" id="mobile-global-header">
+        <div className="md:hidden flex items-center justify-between bg-[#11141C] border-b border-white/5 px-4 pb-2.5 pt-[max(env(safe-area-inset-top,0px)+10px,12px)] select-none flex-shrink-0 safe-px" id="mobile-global-header">
           <div className="font-display text-sm font-bold text-white flex items-center gap-1.5">
             Himam <span className="text-[#D4AF37]" dir="rtl" lang="ar">هِمَم</span>
           </div>
           
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5">
             {/* Quick settings link avatar */}
             <button
               onClick={() => setActiveTab('settings')}
-              className="flex items-center gap-2 border border-white/5 bg-white/5 px-2.5 py-1 rounded-full active:scale-95 transition-all"
+              className="flex items-center gap-2 border border-white/5 bg-white/5 px-2.5 py-1.5 rounded-full active:scale-95 transition-all min-h-[36px]"
             >
               <img 
                 src={profile.avatarUrl || `https://ui-avatars.com/api/?name=${encodeURIComponent(profile.name || user?.email || 'User')}&background=171B24&color=D4AF37`} 
                 alt="Profile" 
                 className="w-5 h-5 rounded-full object-cover border border-[#D4AF37]/30 bg-black p-0.5" 
               />
-              <span className="text-[9px] font-bold text-[#E0E0E6] max-w-[60px] truncate">{profile.name ? profile.name.split(' ')[0] : 'Me'}</span>
+              <span className="text-[10px] font-bold text-[#E0E0E6] max-w-[70px] truncate">{profile.name ? profile.name.split(' ')[0] : 'Me'}</span>
             </button>
 
             <button
               onClick={handleSignOutRequest}
-              className="text-[10px] text-red-400 hover:text-red-300 border border-red-500/10 bg-red-500/5 px-2.5 py-1 rounded-lg active:scale-95 transition-all font-bold"
+              className="text-[10px] text-red-400 hover:text-red-300 border border-red-500/10 bg-red-500/5 px-2.5 py-1.5 rounded-lg active:scale-95 transition-all font-bold min-h-[36px] flex items-center"
               id="mobile-global-logout"
             >
               Log Out
@@ -754,8 +786,8 @@ export default function App() {
         {/* VIEWPORT & RIGHT DRAWER FLEX ROW */}
         <div className="flex-1 flex flex-row overflow-hidden h-full">
           {/* MAIN VIEWPORT */}
-          <main className={`flex-1 overflow-y-auto px-4 sm:px-6 md:px-8 py-6 pb-24 md:py-8 ${activeBg}`}>
-            <div className="max-w-5xl mx-auto space-y-6">
+          <main className={`flex-1 overflow-y-auto px-3 sm:px-6 md:px-8 py-4 sm:py-6 pb-28 md:pb-8 ${activeBg}`}>
+            <div className="max-w-5xl mx-auto space-y-5 sm:space-y-6">
             
             {/* Active view conditional routing */}
             {activeTab === 'dashboard' && (
@@ -852,6 +884,15 @@ export default function App() {
           onCancel={handleCancelSignOut}
         />
       )}
+
+      {/* MORE NAVIGATION LAUNCHER SHEET */}
+      <MoreSheet
+        isOpen={isMoreOpen}
+        onClose={() => setIsMoreOpen(false)}
+        setActiveTab={setActiveTab}
+        profile={profile}
+        onSignOut={handleSignOutRequest}
+      />
     </div>
   );
 }

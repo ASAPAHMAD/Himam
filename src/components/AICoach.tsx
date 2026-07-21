@@ -534,15 +534,15 @@ export default function AICoach({ state, profile }: AICoachProps) {
                   : 'Ask your AI Coach anything\u2026'
               }
               disabled={loading || pendingIntent === 'explain_lesson'}
-              className="flex-1 bg-[#171B24] border border-white/5 rounded-lg py-2.5 px-4 text-xs text-white placeholder-[#55555B] focus:outline-none focus:border-[#D4AF37]/40 disabled:opacity-50"
+              className="flex-1 bg-[#171B24] border border-white/5 rounded-lg py-2.5 px-3.5 min-h-[44px] text-base sm:text-xs text-white placeholder-[#55555B] focus:outline-none focus:border-[#D4AF37]/40 disabled:opacity-50"
             />
             <button
               onClick={handleFreeformSend}
               disabled={loading || !inputValue.trim() || pendingIntent === 'explain_lesson'}
-              className="bg-gradient-to-r from-[#B8932D] to-[#D4AF37] hover:opacity-90 text-white rounded-lg p-2.5 disabled:opacity-40 disabled:cursor-not-allowed transition-opacity"
+              className="bg-gradient-to-r from-[#B8932D] to-[#D4AF37] hover:opacity-90 text-white rounded-lg p-2.5 min-h-[44px] min-w-[44px] flex items-center justify-center active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed transition-all"
               title="Send"
             >
-              <Send className="w-3.5 h-3.5" />
+              <Send className="w-4 h-4" />
             </button>
           </div>
         </div>

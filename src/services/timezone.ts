@@ -238,6 +238,32 @@ export function searchCountries(query: string): CountryOption[] {
   return scored.slice(0, 8);
 }
 
+export function detectUserCountryAndTimezone(): { country: string; timezone: string } {
+  try {
+    const userTz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
+    
+    for (const country of COUNTRY_LIBRARY) {
+      if (country.timezones.some(tz => tz.toLowerCase() === userTz.toLowerCase())) {
+        return { country: country.name, timezone: userTz };
+      }
+    }
+
+    // Secondary fallback matching by country code / timezone prefix
+    const region = userTz.split('/')[0];
+    if (region === 'America') {
+      return { country: 'United States', timezone: userTz };
+    } else if (region === 'Europe') {
+      return { country: 'United Kingdom', timezone: userTz };
+    } else if (region === 'Asia') {
+      return { country: 'Saudi Arabia', timezone: userTz };
+    }
+
+    return { country: '', timezone: userTz };
+  } catch {
+    return { country: '', timezone: 'UTC' };
+  }
+}
+
 export function getDefaultTimezoneForCountry(country: string): string {
   const found = COUNTRY_LOOKUP.get(normalize(country));
   return found?.timezones[0] || 'UTC';
