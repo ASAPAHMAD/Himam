@@ -3,7 +3,8 @@ import MyLearning from './MyLearning';
 import LearningLibrary from './LearningLibrary';
 import StudyCenter from './StudyCenter';
 import Roadmap from './Roadmap';
-import { ClipboardList, BookOpen, GraduationCap, Compass } from 'lucide-react';
+import ExamPrepSimulator from './ExamPrepSimulator';
+import { ClipboardList, BookOpen, GraduationCap, Compass, Brain } from 'lucide-react';
 import { StudyPlanState } from '../services/Sync/types';
 import { Profile } from '../models/types';
 
@@ -35,7 +36,7 @@ export default function Academy({
   syncEngine
 }: AcademyProps) {
   const getValidSubTab = (tab: string) => {
-    if (['my-learning', 'learning-library', 'study-center', 'roadmap'].includes(tab)) {
+    if (['my-learning', 'learning-library', 'study-center', 'roadmap', 'exam-prep'].includes(tab)) {
       return tab;
     }
     return 'my-learning';
@@ -50,6 +51,7 @@ export default function Academy({
   const subTabs = [
     { id: 'my-learning', label: 'My Learning Plan', icon: ClipboardList },
     { id: 'learning-library', label: 'Learning Library', icon: BookOpen },
+    { id: 'exam-prep', label: 'AI Exam Prep & Flashcards', icon: Brain },
     { id: 'study-center', label: 'Study Room', icon: GraduationCap },
     { id: 'roadmap', label: 'Career Roadmap', icon: Compass },
   ];
@@ -100,6 +102,9 @@ export default function Academy({
             onUpdateProfile={onUpdateProfile}
             setActiveTab={setActiveTab}
           />
+        )}
+        {activeSubTab === 'exam-prep' && (
+          <ExamPrepSimulator />
         )}
         {activeSubTab === 'study-center' && (
           <StudyCenter

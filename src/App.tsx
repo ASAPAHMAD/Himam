@@ -45,7 +45,9 @@ import {
   Menu,
   MoreHorizontal,
   ChevronDown,
-  ChevronRight
+  ChevronRight,
+  Brain,
+  Radio
 } from 'lucide-react';
 
 const STORE_KEY = "ahmad_ledger_v3";
@@ -455,6 +457,8 @@ export default function App() {
   const menuItems = [
     { id: 'dashboard', label: t('menu.dashboard'), icon: LayoutDashboard },
     { id: 'my-learning', label: t('menu.learning'), icon: BookOpen },
+    { id: 'exam-prep', label: 'Exam Prep & Flashcards', icon: Brain },
+    { id: 'friends', label: 'Study Squad & Focus', icon: Radio },
     { id: 'roadmap', label: t('menu.career'), icon: Compass },
     { id: 'ai-coach', label: t('menu.ai_coach'), icon: Sparkles },
     { id: 'statistics', label: t('menu.analytics'), icon: BarChart3 },
@@ -844,7 +848,7 @@ export default function App() {
                 onCompleteLesson={handleCompleteLesson}
               />
             )}
-            {['academy', 'my-learning', 'learning-library', 'study-center', 'roadmap'].includes(activeTab) && (
+            {['academy', 'my-learning', 'learning-library', 'study-center', 'roadmap', 'exam-prep'].includes(activeTab) && (
               <Academy
                 state={state}
                 onUpdateState={setState}

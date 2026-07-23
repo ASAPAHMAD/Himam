@@ -15,7 +15,9 @@ import {
   LogIn,
   Sparkles,
   BookOpen,
-  Compass
+  Compass,
+  Brain,
+  Radio
 } from 'lucide-react';
 import { Profile } from '../models/types';
 
@@ -81,10 +83,17 @@ export default function MoreSheet({ isOpen, onClose, setActiveTab, profile, onSi
       color: 'from-purple-500/20 to-purple-600/10 text-purple-400 border-purple-500/20'
     },
     {
+      id: 'exam-prep',
+      label: 'AI Exam Prep & Flashcards',
+      desc: 'Multiple choice, flashcards & mock exams',
+      icon: Brain,
+      color: 'from-blue-500/30 to-indigo-600/20 text-[#3B82F6] border-[#3B82F6]/40 shadow-lg'
+    },
+    {
       id: 'friends',
-      label: 'Study Friends',
-      desc: 'Peer leaderboards & rankings',
-      icon: Users,
+      label: 'Study Squad & Focus Rooms',
+      desc: 'Live Pomodoro rooms & peer leaderboards',
+      icon: Radio,
       color: 'from-rose-500/20 to-pink-600/10 text-rose-400 border-rose-500/20'
     },
     {
